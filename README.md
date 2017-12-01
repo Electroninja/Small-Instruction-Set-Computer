@@ -13,9 +13,9 @@ The program that comes with this project demonstrates 4 different operations cur
 3)Adding 2 Blocks of data
 4)And Bubble sorting data in Memory
 
-Built in Saftey Mechanism: 
+#Built in Saftey Mechanism: 
 If you write over your instructions, and you try and read them the code will terminate. 
 Console will tell you when a bad nmeumonic is used,however code will still compile and run.
 
-Known Bug:
+#Known Bug:
 Jumping or Branching to an undeclared Label will cause the program to get stuck in a loop.
