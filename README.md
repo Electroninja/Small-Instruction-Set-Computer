@@ -1,4 +1,5 @@
-# Small-Instruction-Set-Computer
+# Small-Instruction-Set-Computer  
+Created By Lutulu Mbiye
 
 C++ code for a small instruction set computer and a compiler for it.
 
