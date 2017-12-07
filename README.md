@@ -7,6 +7,7 @@ C++ code for a small instruction set computer and a compiler for it.
 "Command List.txt" has a list of all the valid commands for programming the computer.  
 Currently It will print out the contents of main memory to console when execution is done.  
 For a visual look, download the openframeworks folder. It includes a compiled version of the project and the source code.  
+For a HTML version download or open SISC Simulation.html. It is an HTML version of this project. Should Hopefully work on an browser.
 
 The program that comes with this project demonstrates 4 different operations currently  
 1)Multiplication of 2 numbers  
