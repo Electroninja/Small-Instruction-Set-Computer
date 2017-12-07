@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Small Instruction Set Computer</title>
-			<script>//Memory                                 !!!!! PRINT THIS TABLE TO SCREEN SOMEHOW
+			<script>//Memory
 				var opcode = new Array(256);
 				var values = new Array(256);
 				var LabelTable = new Array(1);
@@ -38,7 +38,7 @@
 						values[MemAdr] = Fvalues(opcode[MemAdr],words[1]);
 						MemAdr++;
 					}
-					return;
+					UpdateReg();
 				}
 				function Fopcode(op)
 				{
@@ -141,7 +141,7 @@
 					return;
 				}
 			</script>
-			<script>//System Based Events, Clock and overstuff
+			<script>//System Based Events, Clock and otherstuff
 				var ClockSpeed;
 				var Running;
 				var Stepper;
@@ -177,6 +177,14 @@
 							x = (x/2)-(x%2)*.5;
 						}
 					return z.split("").reverse().join("");
+					}
+				function toHex(val){  //Converts the value val to a (bits)-bit number and returns the number as a string
+					var x = Number(val).toString(16).toUpperCase();
+					for(var y=x.length;y<4;y++)
+						{
+							x = '0'+x;
+						}
+					return x;
 					}
 				function loadRegister(register,input,bits){ //load the inputed regiser with the value in input
 					register.value = Number(input);
@@ -256,6 +264,23 @@
 						document.getElementById("Lines").innerHTML = "" + document.getElementById("Lines").value;
 						document.getElementById("Clock").innerHTML = "" + document.getElementById("Clock").value;
 						document.getElementById("CS").innerHTML = "" + document.getElementById("CS").value;
+						PopulateTable();
+				}
+				function PopulateTable()
+				{
+					var x;
+					var y;
+					var z;
+					for(var v=0;v<16;v++)
+					{
+						z = 'm'+v;
+						y = v +" ";
+						for(x=16*(v);x<16*(v+1);x++)
+						{
+							y += toHex((opcode[x] << 8) + values[x]) + " ";
+						}
+						document.getElementById(z).innerHTML = y;
+					}
 				}
 			</script>
 			<script>//Control Unit
@@ -369,7 +394,7 @@
 					Stepper = 0;
 				}
 			</script>
-			<script>// ALU and Flags FIX ALU AND PASSING IN STRINGS FOR GETTING THE OBJECTS			
+			<script>// ALU and Flags
 				function Add(a,b)
 					{ 
 						var z = a+b;
@@ -499,35 +524,57 @@
 				}
 		</script>
 	</head>
-	<body onload="Reset();">		
-		<div style="float:right;">
+	<body onload="Reset();" style="background-color:#c146ff;">		
+		<div style="display:inline-block;float:left;max-width:285px;width:285px">
+			<tr></tr>
+			Register A: <b id="A"> </b>
+			<br>Register B: <b id="B"> </b>
+			<br>Temp: <b id="Temp"> </b>
+			<br>X: <b id="X"> </b>
+			<br>Y: <b id="Y"> </b>
+			<br>Counter: <b id="Counter"> </b><br>
+			
+			<br>Memory Address Register: <b id="MAR"> </b>
+			<br>Program Counter: <b id="PC"> </b>
+			<br>Return PC: <b id="rPC"> </b><br>
+			
+			<br>Timing Register: <b id="TR"> </b>
+			<br>Instruction Register: <b id="IR"> </b>
+			<br>Control Signal: <b id="CS"> </b><br>
+			
+			<br>Memory Buffer Register: <b id="MBR"> </b>
+			<br>Clock Cycle: <b id = "Clock"> </b>
+			<br>Lines Executed: <b id = "Lines"></b></br> <br></br>
+			
+			<button onclick="Compile();">Compile</button><button onclick="Running = 1;">Run</button><button onclick="Running = 0;">Pause</button><button onclick="Stepper = 1;Running = 0;">Step</button><br>
+			<button onclick="NewSpeed(1000);">1Hz</button><button onclick="NewSpeed(100);">10Hz</button><button onclick="NewSpeed(10);">100Hz</button><button onclick="NewSpeed(1);">1000Hz</button><br>
+			Speed: <b id="speed"></b><br></br>
+			<button onclick="Reset();">Reset</button><button onclick="getsample();">Load SampleProgram</button><br>
+			<input type="file" id="assymbly" /></br>
+			<button onclick="window.open('https://raw.githubusercontent.com/Electroninja/Small-Instruction-Set-Computer/master/Command%20List.txt')">View Code List</button>
+		</div>
+		<div style="display:inline-block;">
+			<b>Memory Table</b>
+			<br><b id="m0"></b>
+			<br><b id="m1"></b>
+			<br><b id="m2"></b>
+			<br><b id="m3"></b>
+			<br><b id="m4"></b>
+			<br><b id="m5"></b>
+			<br><b id="m6"></b>
+			<br><b id="m7"></b>
+			<br><b id="m8"></b>
+			<br><b id="m9"></b>
+			<br><b id="m10"></b>
+			<br><b id="m11"></b>
+			<br><b id="m12"></b>
+			<br><b id="m13"></b>
+			<br><b id="m14"></b>
+			<br><b id="m15"></b></br>
+		</div>
+		<div style="display:inline-block;float:right;">
 			<br>Assymbly Code For the Computer Goes Here:</br> 
 			<textarea id="Code" rows="25" cols="50">Input Code here</textarea>
 		</div>
-		Register A: <b id="A"> </b>
-		<br>Register B: <b id="B"> </b>
-		<br>Temp: <b id="Temp"> </b>
-		<br>X: <b id="X"> </b>
-		<br>Y: <b id="Y"> </b>
-		<br>Counter: <b id="Counter"> </b><br>
-		
-		<br>Memory Address Register: <b id="MAR"> </b>
-		<br>Program Counter: <b id="PC"> </b>
-		<br>Return PC: <b id="rPC"> </b><br>
-		
-		<br>Timing Register: <b id="TR"> </b>
-		<br>Instruction Register: <b id="IR"> </b>
-		<br>Control Signal: <b id="CS"> </b><br>
-		
-		<br>Memory Buffer Register: <b id="MBR"> </b>
-		<br>Clock Cycle: <b id = "Clock"> </b>
-		<br>Lines Executed: <b id = "Lines"></b></br> <br></br>
-		
-		<button onclick="Compile();">Compile</button><button onclick="Running = 1;">Run</button><button onclick="Running = 0;">Pause</button><button onclick="Stepper = 1;Running = 0;">Step</button><br>
-		<button onclick="NewSpeed(1000);">1Hz</button><button onclick="NewSpeed(100);">10Hz</button><button onclick="NewSpeed(10);">100Hz</button><button onclick="NewSpeed(1);">1000Hz</button><br>
-		Speed<b id="speed"></b><br></br>
-		<button onclick="Reset();">Reset</button><button onclick="getsample();">Load SampleProgram</button><br>
-		<input type="file" id="assymbly" /></br>
-		<button onclick="window.open('https://raw.githubusercontent.com/Electroninja/Small-Instruction-Set-Computer/master/Command%20List.txt')">View Code List</button>
 	</body>	
 </html>
