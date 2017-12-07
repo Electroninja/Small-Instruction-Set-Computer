@@ -228,6 +228,7 @@
 					Running = 0;
 					Stepper = 0;
 					NewSpeed(100);
+					Flags = [0,0,0,0];
 					UpdateReg();
 					}
 				function UpdateReg(){	//Updates all Screen Values
@@ -246,6 +247,7 @@
 						document.getElementById("Lines").innerHTML = "" + document.getElementById("Lines").value;
 						document.getElementById("Clock").innerHTML = "" + document.getElementById("Clock").value;
 						document.getElementById("CS").innerHTML = "" + document.getElementById("CS").value;
+						document.getElementById("Flagr").innerHTML = "N:"+Flags[0]+" Z:"+Flags[1]+" V:"+Flags[2]+" C:"+Flags[3];
 						PopulateTable();
 				}
 				function PopulateTable(){
@@ -502,6 +504,7 @@
 			<br>Memory Address Register: <b id="MAR">6</b>
 			<br>Program Counter: <b id="PC">7</b>
 			<br>Return PC: <b id="rPC">8</b><br>
+			<br>Flags:<b id="Flagr"></b><br>
 			
 			<br>Timing Register: <b id="TR">9</b>
 			<br>Instruction Register: <b id="IR">10</b>
@@ -537,7 +540,7 @@
 			<br><b id="m14"></b>
 			<br><b id="m15"></b></br>
 		</div>
-		<div>
+		<div style="display:inline-block;">
 			<br>Assymbly Code For the Computer Goes Here:</br> 
 			<textarea id="Code" rows="25" cols="50">Input Code here</textarea>
 		</div>
