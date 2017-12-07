@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	<!---Coded by Lutulu Mbiye --->
 	<head>
 		<meta charset="utf-8" />
 		<title>Small Instruction Set Computer</title>
@@ -12,9 +13,7 @@
 				var MemAdr = 0;
 				function Compile()
 				{
-					document.getElementById("Clock").value = 0;
-					document.getElementById("Clock").innerHTML = 0;
-					Running = 0;
+					ResetC();
 					var Textbox = document.getElementById('Code').value;
 					var LineArray = Textbox.split("\n");
 					for(var i = 0;i < LineArray.length;i++) ///used for building the label tabel
@@ -203,6 +202,33 @@
 					document.getElementById("Clock").value = 0;
 					document.getElementById("Code").value = "Input Code here";
 					document.getElementById("assymbly").value = "";
+					//memory table
+					opcode.fill(0);
+					values.fill(0);
+					LabelTable.length = 0;
+					LabelValue.length = 0;
+					MemAdr = 0;
+					Running = 0;
+					Stepper = 0;
+					NewSpeed(100);
+					UpdateReg();
+					}
+				function ResetC(){	//resets all parameters. used for debugging and initalizing the program
+					document.getElementById("A").value = 0;
+					document.getElementById("B").value = 0;
+					document.getElementById("Temp").value = 0;
+					document.getElementById("Y").value = 0;
+					document.getElementById("X").value = 0;
+					document.getElementById("Counter").value = 0;
+					document.getElementById("MAR").value = 0;
+					document.getElementById("PC").value = 0;
+					document.getElementById("rPC").value = 0;
+					document.getElementById("TR").value = 0;
+					document.getElementById("IR").value = 0;
+					document.getElementById("CS").value = 0;
+					document.getElementById("MBR").value = 0;
+					document.getElementById("Lines").value = 0;
+					document.getElementById("Clock").value = 0;
 					//memory table
 					opcode.fill(0);
 					values.fill(0);
