@@ -2,6 +2,7 @@
 Created By Lutulu Mbiye
 
 C++ code for a small instruction set computer and a compiler for it.
+HTML Version https://cdn.rawgit.com/Electroninja/Small-Instruction-Set-Computer/058464f7/SISC%20Simulation.html
 
 "code.txt" is used for programming the computer  
 "Command List.txt" has a list of all the valid commands for programming the computer.  
